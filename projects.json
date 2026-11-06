@@ -1,0 +1,208 @@
+{
+  "version": 1,
+  "projects": [
+    {
+      "id": "stm32-synthesizer",
+      "layout": "feature",
+      "eyebrow": "Bachelor’s thesis · 2026",
+      "title": "STM32 Polyphonic Sound Synthesizer",
+      "summary": "Designed and built a standalone synthesizer around the STM32F411. MIDI input triggers up to six simultaneous notes, each with two wavetable oscillators. Audio is generated in real time and sent to a PCM5102 DAC.",
+      "diagram": {
+        "title": "System overview",
+        "subtitle": "From playing a note to hearing the audio",
+        "stages": [
+          {
+            "title": "Input",
+            "description": "MIDI keyboard and physical knobs"
+          },
+          {
+            "title": "Generate",
+            "description": "Six voices, two wavetable oscillators each"
+          },
+          {
+            "title": "Shape & mix",
+            "description": "ADSR envelopes, LFO and shared low-pass filter"
+          },
+          {
+            "title": "Stream",
+            "description": "Double-buffered DMA and I2S transfer"
+          },
+          {
+            "title": "Play",
+            "description": "PCM5102 DAC and analog output"
+          }
+        ],
+        "note": "The STM32F411 handles synthesis and streaming; a 2×16 LCD displays controls via I2C."
+      },
+      "details": [
+        {
+          "title": "Generating sound efficiently",
+          "description": "Direct digital synthesis uses precomputed waveforms rather than calculating samples from scratch. Each voice has an ADSR envelope with an additional fade-out stage to reduce clicks when a note is retriggered."
+        },
+        {
+          "title": "Keeping audio continuous",
+          "description": "While DMA sends one half of the audio buffer to the DAC, the CPU fills the other. This separates audio processing from transmission so multiple notes can play without blocking the output stream."
+        }
+      ],
+      "links": [
+        {
+          "label": "Source code & demonstrations ↗",
+          "url": "https://github.com/LnrdHr/stm-synthesizer"
+        }
+      ],
+      "gallery": {
+        "title": "Oscilloscope measurements",
+        "subtitle": "Hardware validation · click a figure to enlarge",
+        "images": [
+          {
+            "src": "images/scope-sine.jpg",
+            "alt": "Sine-wave output oscilloscope capture",
+            "figure": "Figure 7.1",
+            "title": "Sine wave",
+            "detail": "Single-note output",
+            "caption": "Figure 7.1 — Sine wave: single-note analog output"
+          },
+          {
+            "src": "images/scope-triangle.jpg",
+            "alt": "Triangle-wave output oscilloscope capture",
+            "figure": "Figure 7.2",
+            "title": "Triangle wave",
+            "detail": "Single-note output",
+            "caption": "Figure 7.2 — Triangle wave: single-note analog output"
+          },
+          {
+            "src": "images/scope-sine-triangle.jpg",
+            "alt": "Oscilloscope capture of mixed sine and triangle waves",
+            "figure": "Figure 7.3",
+            "title": "Sine + triangle",
+            "detail": "Mixed oscillators",
+            "caption": "Figure 7.3 — Combined sine and triangle oscillators"
+          },
+          {
+            "src": "images/scope-sine-saw.jpg",
+            "alt": "Oscilloscope capture of mixed sine and sawtooth waves",
+            "figure": "Figure 7.4",
+            "title": "Sine + sawtooth",
+            "detail": "Mixed oscillators",
+            "caption": "Figure 7.4 — Combined sine and sawtooth oscillators"
+          },
+          {
+            "src": "images/scope-polyphony.jpg",
+            "alt": "Oscilloscope capture of A-minor chord",
+            "figure": "Figure 7.5",
+            "title": "A-minor chord",
+            "detail": "Three-note polyphony",
+            "caption": "Figure 7.5 — Three-note A-minor chord"
+          },
+          {
+            "src": "images/scope-i2s.jpg",
+            "alt": "Oscilloscope capture of I2S clock, data and word select",
+            "figure": "Figure 7.6",
+            "title": "I2S signals",
+            "detail": "Digital audio interface",
+            "caption": "Figure 7.6 — I2S clock, data and channel-select signals"
+          }
+        ],
+        "note": "Measurements confirmed waveform generation, oscillator mixing, polyphony and I2S communication. The thesis also documents a ~1.9% pitch deviation on a test note."
+      }
+    },
+    {
+      "id": "financial-lead-analyzer",
+      "layout": "feature",
+      "eyebrow": "Professional work · VivaDrive",
+      "title": "Automated Financial Lead Analysis",
+      "summary": "Worked on an n8n pipeline that turns a company identifier into a structured business assessment. The system coordinates financial filing retrieval, optional web research and LLM-based scoring.",
+      "diagram": {
+        "title": "Analysis pipeline",
+        "subtitle": "Four coordinated n8n workflows, from queue to scored results",
+        "stages": [
+          {
+            "title": "Select",
+            "description": "Pick pending companies from Google Sheets"
+          },
+          {
+            "title": "Collect",
+            "description": "Request filings and store PDF documents"
+          },
+          {
+            "title": "Research",
+            "description": "Enrich with fleet, ownership and business signals",
+            "optional": true
+          },
+          {
+            "title": "Score",
+            "description": "Select Master or EV analysis path"
+          },
+          {
+            "title": "Deliver",
+            "description": "Write structured results and recommended actions"
+          }
+        ],
+        "note": "Financial-only analyses bypass web research."
+      },
+      "details": [
+        {
+          "title": "Asynchronous retrieval",
+          "description": "An orchestrator handles queued companies sequentially; document scraping runs as an external job whose status is polled before the generated files are uploaded to Google Drive."
+        },
+        {
+          "title": "Evidence-informed scoring",
+          "description": "Optional web research extracts ownership, fleet, hiring and sustainability signals. Separate Master and EV scorecards evaluate business opportunities or electric-vehicle readiness."
+        },
+        {
+          "title": "Structured data and reliability",
+          "description": "Schema-constrained LLM outputs map to spreadsheet columns. Retries, polling limits and consistent data contracts are key concerns for the long-running workflows."
+        }
+      ],
+      "note": "Internal internship system; this overview excludes client data, private endpoints and credentials."
+    },
+    {
+      "id": "ai-polling",
+      "layout": "card",
+      "eyebrow": "Personal project",
+      "title": "AI-Enhanced Polling Application",
+      "summary": "A Django polling backend with AI-assisted question generation and chatbot interactions.",
+      "description": "Django models manage questions, choices and votes. LangGraph coordinates conversational state and external tools, including search, while JSON endpoints connect the backend to the frontend. Langfuse helps inspect agent runs.",
+      "visual": {
+        "type": "polls"
+      },
+      "links": [
+        {
+          "label": "Repository & demo ↗",
+          "url": "https://github.com/LnrdHr/django"
+        }
+      ]
+    },
+    {
+      "id": "alternative-tic-tac-toe",
+      "layout": "card",
+      "eyebrow": "Personal project",
+      "title": "Alternative Tic-Tac-Toe",
+      "summary": "A React game with overwritable squares, freezing and move-history navigation.",
+      "description": "Custom rule validation governs move legality, player turns, frozen cells, overwrite conditions and winner detection. React renders the board from saved state snapshots, allowing navigation through earlier moves.",
+      "visual": {
+        "type": "game"
+      },
+      "links": [
+        {
+          "label": "Repository & playable demo ↗",
+          "url": "https://github.com/LnrdHr/my-first-react"
+        }
+      ]
+    },
+    {
+      "id": "ev-charging",
+      "layout": "compact",
+      "eyebrow": "VivaDrive internship",
+      "title": "EV Charging Location Discovery",
+      "summary": "Worked on identifying and assessing candidate charging locations with Overpass API data from OpenStreetMap and routing context from OpenRouteService. The challenge was combining heterogeneous geospatial inputs into comparable site candidates. Internal project."
+    },
+    {
+      "id": "godot-visual-novel",
+      "layout": "compact",
+      "eyebrow": "Extramus internship",
+      "title": "Godot Visual Novel",
+      "summary": "Developed interactive visual-novel content in Godot and performed web-application testing on a Laravel HR platform."
+    }
+  ]
+}
