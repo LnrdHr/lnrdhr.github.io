@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="#08111b" name="theme-color"/>
+<meta content="Leonard Jedvaj — computer engineering student building embedded firmware, real-time digital audio, and AI-driven software systems. Projects, engineering decisions and measurements." name="description"/>
+<meta content="website" property="og:type"/>
+<meta content="Leonard Jedvaj | Embedded Systems &amp; Software" property="og:title"/>
+<meta content="Engineering projects in STM32, real-time DSP, workflow automation, Python and React." property="og:description"/>
+<meta content="https://lnrdhr.github.io/" property="og:url"/>
+<meta content="https://lnrdhr.github.io/stm32-synthesizer-prototype.jpg" property="og:image"/>
+<link href="https://lnrdhr.github.io/" rel="canonical"/>
+<title>Leonard Jedvaj — Embedded Systems &amp; Software</title>
+<style>
+    :root{color-scheme:dark;--bg:#08111b;--panel:#101e2b;--panel2:#142637;--panel3:#112431;--text:#eff5fa;--muted:#b6c5d2;--sub:#8fa4b7;--stroke:#263d4d;--cyan:#72e5d8;--lime:#c4ee9c;--amber:#ecc497;--max:1160px;--mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+    *,*::before,*::after{box-sizing:border-box}
+    html{scroll-behavior:smooth;scroll-padding-top:96px}
+    body{margin:0;min-width:320px;background:var(--bg);color:var(--text);font:400 16px/1.68 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+    body::before{content:"";position:absolute;inset:0 0 auto;height:760px;z-index:-1;pointer-events:none;background:radial-gradient(ellipse 50% 55% at 82% 6%,rgba(80,158,164,.14),transparent 78%),radial-gradient(ellipse 45% 50% at 8% 35%,rgba(52,103,143,.11),transparent 80%)}
+    ::selection{background:#27645f;color:white}
+    img{max-width:100%;display:block}a{color:inherit;text-decoration:none}a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid var(--cyan);outline-offset:3px}button{font:inherit;cursor:pointer}
+    .container{width:min(100%,var(--max));margin:0 auto;padding-inline:28px}.sr-only{position:absolute;clip:rect(0,0,0,0);width:1px;height:1px;overflow:hidden;white-space:nowrap}
+    .skip{position:absolute;top:-80px;left:20px;background:var(--cyan);color:#061820;padding:10px 16px;border-radius:8px;z-index:80}.skip:focus{top:8px}
+    .site-header{position:sticky;top:0;z-index:35;background:rgba(8,17,27,.93);backdrop-filter:blur(16px);border-bottom:1px solid rgba(134,179,202,.12)}
+    .nav-inner{height:76px;display:flex;align-items:center;justify-content:space-between;gap:22px}
+    .brand{display:flex;align-items:center;gap:12px;font-size:14px;font-weight:750;white-space:nowrap}.mark{display:grid;place-items:center;width:35px;height:35px;background:#12323a;border:1px solid #32787b;color:var(--cyan);border-radius:10px;font:800 12px var(--mono)}
+    .nav{display:flex;align-items:center;gap:28px}.nav a{font-size:13px;color:var(--muted);font-weight:680}.nav a:hover,.foot a:hover{color:var(--cyan)}.nav .contact-link{border:1px solid #426072;border-radius:100px;color:var(--text);padding:7px 15px}
+    .menu{display:none;background:transparent;color:var(--text);border:1px solid #456174;border-radius:8px;padding:6px 13px}
+    .kicker,.overline{color:var(--cyan);font:800 10px/1.7 var(--mono);letter-spacing:.15em;text-transform:uppercase}
+    .hero{padding:62px 0 69px}.hero-grid{display:grid;grid-template-columns:.88fr 1.12fr;gap:56px;align-items:center}
+    .hero h1{font-size:clamp(2.8rem,5.7vw,5rem);line-height:1.05;letter-spacing:-.065em;margin:16px 0 12px;font-weight:820}
+    .descriptor{color:var(--cyan);font-size:clamp(1rem,1.9vw,1.18rem);line-height:1.5;font-weight:680;margin:0 0 24px}
+    .hero-text{color:var(--muted);line-height:1.86;font-size:15px;max-width:510px;margin:0}.hero-text strong{color:#e1ecf3;font-weight:600}
+    .actions{display:flex;gap:11px;align-items:center;flex-wrap:wrap;margin:29px 0 24px}.button{display:inline-flex;align-items:center;justify-content:center;gap:11px;padding:10px 18px;min-height:44px;border-radius:9px;font-size:13px;font-weight:760;transition:transform .2s,background .2s,border-color .2s}.button:hover{transform:translateY(-2px)}.button.primary{background:var(--cyan);color:#061c24}.button.primary:hover{background:#a7f7ed}.button.outline{border:1px solid #486170;color:#eaf0f7}.button.outline:hover{border-color:var(--cyan)}.small-arrow{font-size:15px}
+    .based{display:flex;align-items:center;gap:10px;font-size:12px;color:var(--sub)}.based::before{content:"";width:7px;height:7px;background:var(--lime);border-radius:50%;box-shadow:0 0 0 4px rgba(196,238,156,.07)}
+    .hero-visual{position:relative;min-width:0}.hero-photo{padding:12px;border:1px solid #315364;background:linear-gradient(145deg,#183344,#0d1b2a);border-radius:19px;box-shadow:0 24px 90px rgba(0,0,0,.28)}
+    .photo-bar{display:flex;justify-content:space-between;gap:10px;padding:3px 5px 13px;color:#bad4df;font:700 10px var(--mono);letter-spacing:.11em}
+    .hero-photo img{width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:11px;border:1px solid #37515f}.photo-label{display:flex;flex-wrap:wrap;justify-content:space-between;gap:6px;padding:12px 5px 3px;color:#a8c4cb;font:700 10px var(--mono)}
+    .mini-stats{display:flex;gap:9px;flex-wrap:wrap;margin-top:12px}.mini-stats div{flex:1;min-width:90px;background:#122431;border:1px solid #294350;border-radius:12px;padding:11px 13px}.mini-stats strong{display:block;font-size:22px;line-height:1.2;letter-spacing:-.045em;color:var(--text)}.mini-stats span{display:block;font:700 9px/1.45 var(--mono);text-transform:uppercase;letter-spacing:.06em;color:var(--sub)}
+    .tech-strip{border-block:1px solid rgba(118,167,183,.16);background:#0d1c28}.tech-strip .container{display:flex;align-items:center;justify-content:space-between;gap:14px 22px;flex-wrap:wrap;padding-block:17px}.tech-strip span{font:750 11px/1.4 var(--mono);letter-spacing:.08em;color:#91aebb}
+    .section{padding-top:88px}.section-head{display:flex;align-items:end;justify-content:space-between;gap:35px;margin-bottom:32px}.section-head h2{font-size:clamp(2rem,4vw,3.2rem);letter-spacing:-.055em;line-height:1.12;margin:10px 0 0}.section-head p{color:var(--muted);max-width:390px;margin:0;font-size:14px}
+    .project-feature{background:linear-gradient(150deg,#112332,#0e1c2a);border:1px solid #2c4554;border-radius:19px;overflow:hidden}.project-feature-body{padding:34px 36px 36px}.project-feature h3{font-size:clamp(1.7rem,3vw,2.3rem);line-height:1.15;letter-spacing:-.045em;margin:9px 0 12px}.project-feature p,.project-feature li{color:var(--muted);font-size:14px;line-height:1.8}.project-feature p{margin:0 0 13px}.tags{display:flex;gap:7px;flex-wrap:wrap;margin:17px 0 23px}.tags span{font:680 10px/1.3 var(--mono);padding:6px 9px;border:1px solid #304858;border-radius:5px;color:#c4d9e4;background:#192c3a}
+    .architecture{padding:23px;background:#091722;border:1px solid #264452;border-radius:12px;margin-top:25px}.architecture .line-label{font:700 10px var(--mono);color:var(--cyan);letter-spacing:.1em}.pipeline{margin-top:16px;display:flex;align-items:stretch;gap:7px}.pipeline .step{flex:1;min-width:0;border:1px solid #3d586b;border-radius:8px;padding:12px 9px;background:#122b39;text-align:center}.pipeline .step b{display:block;color:#d9ebf0;font-size:11px;line-height:1.4}.pipeline .step small{display:block;color:#8fb2c0;font:600 9px/1.5 var(--mono);margin-top:6px}.pipeline .chevron{align-self:center;color:var(--cyan);font-size:17px}.arch-note{color:var(--sub);font-size:11px;margin:13px 0 0!important}
+    .tech-two{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:25px}.tech-two h4,.detail h4{font-size:14px;color:#e6f0f7;margin:0 0 8px}.tech-two p{margin:0;font-size:13px}.tech-two ul{margin:0;padding-left:18px}.tech-two li{font-size:13px;margin-bottom:6px}.small-links{display:flex;gap:18px;flex-wrap:wrap;margin-top:22px}.small-links a{font-weight:760;font-size:12px;color:var(--cyan);border-bottom:1px solid transparent}.small-links a:hover{border-color:var(--cyan)}
+    .gallery-header{display:flex;align-items:end;justify-content:space-between;gap:25px;margin:32px 0 16px}.gallery-header h4{font-size:19px;letter-spacing:-.03em;margin:0}.gallery-header p{font-size:12px;color:var(--sub);margin:0}.scope-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px}
+    .scope-card{display:block;overflow:hidden;border:1px solid #315063;border-radius:12px;background:#0f1e2c;transition:transform .2s,border-color .2s}.scope-card:hover{transform:translateY(-4px);border-color:var(--cyan)}.scope-card img{width:100%;aspect-ratio:1.667;object-fit:cover;background:white}.scope-card span{display:block;padding:10px 12px 11px;color:#c1d7e2;font-size:11px;font-weight:650}.scope-card span small{display:block;color:var(--sub);font:600 10px var(--mono);margin-top:3px}
+    .measure-note{margin-top:17px;color:var(--sub);font-size:12px;line-height:1.7}.measure-note b{color:#d6e8f0}
+    .lead-grid{display:grid;grid-template-columns:1.02fr .98fr;gap:24px}.workflow-art{background:linear-gradient(145deg,#112738,#0b1724);border:1px solid #2f5164;border-radius:15px;padding:22px;position:relative}.terminal-head{display:flex;justify-content:space-between;gap:8px;color:#94b4c6;font:750 10px var(--mono);letter-spacing:.09em;margin-bottom:18px}.dots{display:flex;gap:5px;align-items:center}.dots i{width:7px;height:7px;border:1px solid #5c8091;border-radius:50%}.flow-vertical{display:grid;gap:10px}.flow-step{border:1px solid #35576a;border-radius:10px;background:#122f3c;padding:11px 14px;position:relative;display:grid;grid-template-columns:1fr auto;align-items:center;gap:15px}.flow-step:not(:last-child)::after{content:"↓";position:absolute;bottom:-15px;left:50%;transform:translateX(-50%);z-index:2;font-size:15px;color:var(--cyan);font-weight:750}.flow-step strong{display:block;font-size:12px;line-height:1.4}.flow-step span{display:block;font:600 10px var(--mono);color:#94b9c4}.flow-step em{font-style:normal;color:var(--cyan);font:700 10px var(--mono)}.flow-step.branch{background:#1c2b42}.branch-path{display:flex;gap:8px;align-items:stretch}.branch-path>.flow-step{flex:1;min-width:0}.branch-path .flow-step:not(:last-child)::after{content:none}.branch-path strong{font-size:11px}.branch-note{font:650 10px var(--mono);color:#94b9c4;margin:12px 0 4px;line-height:1.65}
+    .data-contract{background:#06131c;border:1px solid #284656;border-radius:9px;padding:14px 15px;margin-top:17px}.data-contract .code-top{font:750 10px var(--mono);color:#87b3bb;margin:0 0 9px}.data-contract pre{margin:0;color:#c4dce8;font:600 11px/1.9 var(--mono);white-space:pre-wrap;word-break:break-word}.data-contract .value{color:var(--lime)}
+    .lead-copy{padding:5px 0}.lead-copy h3{font-size:clamp(1.6rem,2.8vw,2.3rem);letter-spacing:-.045em;line-height:1.18;margin:9px 0 14px}.lead-copy p{font-size:14px;color:var(--muted);line-height:1.85;margin:0 0 12px}.list-detail{display:grid;gap:12px;margin-top:20px}.detail{border-left:2px solid #3b8490;padding:0 0 0 15px}.detail p{font-size:13px;margin:0}.detail h4{margin-bottom:3px}.notice{padding:13px 16px;background:#152a35;border:1px solid #375462;border-radius:10px;color:#a9c2ce;font-size:12px;line-height:1.7;margin-top:22px}.notice strong{color:#e5f2f5}
+    .projects-more{display:grid;grid-template-columns:1fr 1fr;gap:19px;margin-top:30px}.project-card{border:1px solid #2b4658;border-radius:16px;background:#101f2d;overflow:hidden}.project-card .visual{height:205px;border-bottom:1px solid #2b4658;padding:24px;display:flex;align-items:center;justify-content:center;background:radial-gradient(ellipse at 30% 0%,rgba(80,151,164,.17),transparent 80%),#0a1826}.project-card .body{padding:26px 28px 30px}.project-card h3{font-size:22px;letter-spacing:-.035em;margin:7px 0 9px}.project-card p,.project-card li{font-size:13px;color:var(--muted);line-height:1.8}.project-card ul{margin:12px 0 0;padding-left:18px}.project-card li{margin:4px 0}.project-card .tags{margin:15px 0 9px}.project-card .small-links{margin-top:18px}
+    .ai-ui{width:100%;max-width:430px;display:grid;gap:8px}.ai-ui .top{display:flex;justify-content:space-between;gap:10px;padding:8px 10px;border:1px solid #3a5f72;border-radius:8px;font:700 11px var(--mono);color:#bdd7e6;background:#142b3e}.ai-ui .chat{display:grid;grid-template-columns:2fr 1fr;gap:8px}.ai-ui .bubble{border:1px solid #36536a;border-radius:9px;background:#182b42;padding:11px;color:#bdd7e6;font-size:11px;line-height:1.5}.ai-ui .pill{font:750 10px var(--mono);color:var(--cyan);margin:4px 0}.ai-ui .tool{background:#1a3842;border:1px solid #3c7375;color:#b2ded9;border-radius:7px;padding:11px 8px;display:flex;align-items:center;justify-content:center;text-align:center;font:700 11px var(--mono)}
+    .game-ui{display:flex;align-items:center;gap:27px}.board{display:grid;grid-template-columns:repeat(3,47px);gap:6px;transform:rotate(-5deg)}.board span{width:47px;height:47px;display:grid;place-items:center;background:#243046;border:1px solid #3c4b62;border-radius:8px;font-size:27px;font-weight:700;color:var(--amber)}.board span:nth-child(3n + 2){color:var(--cyan)}.board .locked{border-color:var(--cyan);background:#1d4147}.game-log{width:145px;border:1px solid #314c5c;background:#0d2530;border-radius:9px;padding:11px;font:700 10px/1.6 var(--mono);color:#a7c8d7}.game-log strong{color:var(--cyan);display:block;font-size:10px;margin-bottom:8px}.game-log span{display:block;border-top:1px solid #2b4d5b;padding:6px 0}
+    .secondary-work{display:grid;grid-template-columns:1.2fr .8fr;gap:19px;margin-top:19px}.secondary-work article{padding:25px 28px;border:1px solid #2b4658;background:#0d1c28;border-radius:14px}.secondary-work h3{margin:8px 0 8px;font-size:18px;letter-spacing:-.03em}.secondary-work p{margin:0;font-size:13px;color:var(--muted);line-height:1.8}
+    .experience-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:60px}.experience-grid .section-head{display:block}.experience-grid .section-head p{margin-top:16px}.timeline{border-left:1px solid #35727b;padding-left:27px;margin-left:7px}.position{position:relative;padding-bottom:30px}.position:last-child{padding-bottom:0}.position::before{content:"";position:absolute;left:-34px;top:5px;width:12px;height:12px;border:2px solid var(--cyan);background:var(--bg);border-radius:50%}.position .meta{display:flex;flex-wrap:wrap;justify-content:space-between;gap:6px;color:var(--sub);font:700 10px var(--mono)}.position h3{font-size:18px;margin:10px 0}.position p{color:var(--muted);font-size:13px;line-height:1.82;margin:0}
+    .skills-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}.skills-panel{background:#101f2d;border:1px solid #2b4658;border-radius:14px;padding:26px}.skills-panel h3{margin:0 0 6px;font-size:19px}.skills-panel p{margin:0;color:var(--sub);font-size:12px}.skills-panel .tags{margin:20px 0 0}.edu{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;padding:23px 26px;border-radius:13px;background:#0e1e2c;border:1px solid #2b4658;margin-top:20px;font-size:13px;color:var(--muted)}.edu strong{display:block;color:#e7f1f7;font-size:14px}.edu .side{font:700 11px var(--mono);color:var(--sub)}
+    .contact{margin-top:90px;border-top:1px solid #2b4555;padding:62px 0;background:radial-gradient(ellipse 50% 75% at 80% 40%,rgba(57,135,139,.12),transparent 80%)}.contact-inner{display:flex;justify-content:space-between;align-items:center;gap:26px}.contact h2{font-size:clamp(2rem,4.2vw,3.2rem);line-height:1.12;letter-spacing:-.05em;margin:9px 0}.contact p{font-size:14px;color:var(--muted);margin:0}.foot{border-top:1px solid #293f50;padding-top:23px;padding-bottom:36px;display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;color:var(--sub);font-size:12px}.foot .links{display:flex;gap:19px;flex-wrap:wrap}
+    dialog{color:var(--text);background:#0d1d2a;border:1px solid #456576;padding:13px;border-radius:13px;max-width:min(95vw,1060px);width:95vw;max-height:94vh;box-shadow:0 28px 90px #000b}dialog::backdrop{background:#030a12d9;backdrop-filter:blur(4px)}.modal-head{display:flex;justify-content:space-between;align-items:center;gap:20px;padding:2px 5px 12px}.modal-head strong{font-size:14px}.modal-head button{background:#233949;border:1px solid #537084;color:var(--text);padding:7px 12px;border-radius:8px}dialog img{margin:auto;max-height:77vh;object-fit:contain;background:white;border-radius:5px}
+    .reveal{opacity:0;transform:translateY(14px);transition:opacity .6s,transform .6s}.reveal.visible{opacity:1;transform:none}
+    @media(max-width:950px){.hero-grid{gap:28px}.hero{padding:45px 0 55px}.section{padding-top:72px}.lead-grid{grid-template-columns:1fr 1fr;gap:18px}.project-feature-body{padding:28px}.flow-step{padding:10px}.flow-step em{display:none}.architecture{padding:17px}}
+    @media(max-width:750px){.hero-grid,.lead-grid,.experience-grid,.projects-more,.secondary-work,.skills-grid,.tech-two{grid-template-columns:1fr}.hero-grid{gap:34px}.hero-photo{max-width:630px}.section-head{align-items:start;display:block}.section-head p{margin-top:14px}.scope-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.experience-grid{gap:24px}.lead-copy{padding:0}.project-feature-body{padding:25px}.tech-strip .container{justify-content:flex-start}.contact-inner{align-items:start;flex-direction:column}.workflow-art{max-width:660px}.projects-more{gap:18px}}
+    @media(max-width:570px){.container{padding-inline:19px}.nav-inner{height:66px}.menu{display:block}.nav{display:none;position:absolute;top:65px;left:18px;right:18px;background:#122536;border:1px solid #3a5666;box-shadow:0 16px 40px #0007;border-radius:11px;padding:14px;flex-direction:column;align-items:stretch;gap:0}.nav.open{display:flex}.nav a,.nav .contact-link{display:block;border:0;border-radius:0;padding:10px;font-size:14px}.hero h1{font-size:clamp(2.55rem,11vw,4.1rem)}.hero{padding:36px 0 48px}.mini-stats div{min-width:75px;padding:10px}.mini-stats strong{font-size:19px}.section{padding-top:64px}.scope-grid{grid-template-columns:1fr 1fr;gap:9px}.scope-card span{font-size:10px;padding:9px}.gallery-header{align-items:start;display:block}.gallery-header p{margin-top:5px}.pipeline{display:grid;grid-template-columns:1fr;gap:5px}.pipeline .chevron{transform:rotate(90deg);justify-self:center;line-height:1;font-size:18px}.pipeline .step{padding:10px}.project-feature-body{padding:19px}.architecture{padding:15px}.project-card .body,.secondary-work article{padding:20px}.project-card .visual{padding:13px}.game-ui{gap:16px}.board{gap:3px}.board span{width:40px;height:40px}.board{grid-template-columns:repeat(3,40px)}.game-log{width:132px}.contact{margin-top:72px}.photo-label{font-size:9px}.footer-links{gap:12px}}
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition:none!important;animation:none!important}.reveal{opacity:1;transform:none}}
+  </style>
+<style>
+/* Portfolio v4 — more visual, less label-heavy */
+.hero-grid{grid-template-columns:.93fr 1.07fr;gap:45px}
+.hero-photo{padding:11px 11px 15px}
+.hero-photo img{display:block;width:100%;height:auto;aspect-ratio:auto;object-fit:contain;object-position:center;border-radius:10px;background:#0b1826}
+.photo-bar{font:650 11px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;letter-spacing:0;color:#bfced8;text-transform:none;padding:4px 5px 12px}
+.hero-text{max-width:490px}.hero .kicker{font-size:10px}
+.mini-stats{margin-top:10px}.mini-stats div{background:#101f2b}.mini-stats span{text-transform:none;letter-spacing:0;font-family:inherit;font-size:11px;font-weight:650}
+.section-head h2{font-size:clamp(2.1rem,3.8vw,3rem)}
+.project-feature-body>p:first-of-type{max-width:920px}
+.architecture{margin-top:23px;padding:23px;background:linear-gradient(150deg,#0b1b29,#0d2431)}
+.diagram-heading{display:flex;align-items:baseline;justify-content:space-between;gap:12px 26px;flex-wrap:wrap;margin-bottom:18px}
+.diagram-heading h4{font-size:16px;margin:0;letter-spacing:-.015em;color:#eaf2f6}
+.diagram-heading p{margin:0!important;font-size:12px!important;color:#8fb2bd!important}
+.system-flow{display:grid;grid-template-columns:minmax(0,1fr) 15px minmax(0,1fr) 15px minmax(0,1fr) 15px minmax(0,1fr) 15px minmax(0,1fr);align-items:stretch;gap:6px}
+.system-stage{background:#153140;border:1px solid #365669;border-radius:10px;padding:15px 12px 13px;min-width:0}
+.system-stage .stage-number{font-size:11px;color:#72e5d8;font-weight:800;letter-spacing:.055em;margin-bottom:6px}
+.system-stage h5{font-size:15px;font-weight:760;letter-spacing:-.02em;margin:0 0 8px;color:#edf7fa}
+.system-stage p{font-size:12px;line-height:1.5;color:#aac4d2;margin:0!important}
+.flow-arrow{align-self:center;justify-self:center;color:#74dacf;font-size:19px;font-weight:800}
+.diagram-foot{margin:15px 0 0!important;color:#9db6c4!important;font-size:12px!important;line-height:1.6!important}
+.synth-details{margin-top:23px}.synth-details h4{font-size:15px;margin-bottom:7px}.synth-details p{font-size:13px;line-height:1.75}
+.small-links{margin-top:17px}
+.gallery-header{margin:29px 0 13px}.gallery-header h4{font-size:18px}.gallery-header p{font-size:12px}
+.scope-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.scope-card{border-color:#2d495a;background:#0e1c2a;border-radius:9px;transition:border-color .2s,transform .2s}
+.scope-card img{width:100%;height:122px;aspect-ratio:auto;object-fit:contain;background:#eef0f0;padding:4px}
+.scope-card span{font-weight:700;font-size:11px;padding:9px 10px 10px;line-height:1.45}
+.scope-card span small{font:500 10px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#91aebe;margin-top:1px;letter-spacing:0;text-transform:none}
+.measure-note{max-width:880px;font-size:12px;line-height:1.75;color:#a7bbc9;margin:15px 0 0!important}
+.measure-note strong{color:#d9ebf2}
+.lead-architecture{margin-top:24px}
+.lead-flow .optional-stage{border-style:dashed;background:#122938;border-color:#638087}
+.lead-explanations{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:26px;margin-top:25px}
+.lead-explanations h4{font-size:15px;margin:0 0 7px;color:#e5f3f8}
+.lead-explanations p{font-size:13px;line-height:1.75;margin:0;color:#b6c5d2}
+.internal-note{border-top:1px solid #294857;margin:24px 0 0!important;padding-top:16px;font-size:12px!important;color:#90abba!important}
+.project-card .body p{line-height:1.8;margin:0 0 13px}
+.project-card .body p strong{color:#ecf4f7}
+.project-card .small-links{margin-top:17px}
+.project-card .visual{height:192px}
+.skills-panel p{font-size:13px;line-height:1.85;color:#b6c5d2;margin-top:8px}
+.overline{letter-spacing:.095em;text-transform:none}
+@media(max-width:1000px){.system-flow{grid-template-columns:repeat(5,minmax(0,1fr));gap:8px}.system-stage{padding:12px 10px;min-height:146px}.flow-arrow{display:none}.system-stage p{font-size:11px}.system-stage h5{font-size:14px}}
+@media(max-width:750px){.hero-grid{grid-template-columns:1fr}.hero-visual{max-width:650px}.scope-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.lead-explanations{grid-template-columns:1fr;gap:17px}.lead-explanations>div{border-left:2px solid #386e78;padding-left:15px}.system-flow{grid-template-columns:1fr;gap:7px}.system-stage{min-height:0;display:grid;grid-template-columns:50px 130px 1fr;align-items:center;gap:8px;padding:11px 15px}.system-stage .stage-number{margin:0;font-size:10px}.system-stage h5{margin:0;font-size:14px}.system-stage p{font-size:12px}.system-flow .system-stage:not(:last-of-type){position:relative}}
+@media(max-width:570px){.photo-bar{font-size:10px}.scope-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.scope-card img{height:105px}.scope-card span{font-size:10px;padding:8px}.system-stage{grid-template-columns:36px 90px 1fr;gap:6px;padding:10px}.system-stage h5{font-size:13px}.system-stage p{font-size:11px}.architecture{padding:15px}.diagram-heading{margin-bottom:13px}.diagram-heading h4{font-size:15px}.hero h1{font-size:clamp(2.5rem,11vw,3.65rem)}}
+</style><style>@media(min-width:1001px){.scope-grid>.scope-card:nth-last-child(2){grid-column:2}}</style></head>
+<body id="top">
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header"><div class="container nav-inner">
+<a class="brand" href="#top"><span class="mark">LJ</span><span>Leonard Jedvaj</span></a>
+<button aria-controls="main-nav" aria-expanded="false" class="menu">Menu ☰</button>
+<nav aria-label="Main navigation" class="nav" id="main-nav"><a href="#projects">Projects</a><a href="#experience">Experience</a><a href="#skills">Skills</a><a class="contact-link" href="mailto:jedvajleonard@gmail.com">Contact ↗</a></nav>
+</div></header>
+<main id="main">
+<section aria-labelledby="hero-name" class="hero"><div class="container hero-grid">
+<div>
+<span class="kicker">PORTFOLIO · LEONARD JEDVAJ</span>
+<h1 id="hero-name">Leonard Jedvaj<span class="sr-only"> — portfolio</span></h1>
+<p class="descriptor">Embedded systems &amp; software development</p>
+<p class="hero-text">I’m a Computer Engineering master’s student at the <strong>University of Rijeka</strong>. I build embedded firmware, real-time digital audio systems and software that connects data, automation and useful interfaces.</p>
+<div class="actions"><a class="button primary" href="#projects">Explore projects <span aria-hidden="true" class="small-arrow">↗</span></a><a class="button outline" href="https://github.com/LnrdHr" rel="noopener noreferrer" target="_blank">GitHub profile <span aria-hidden="true" class="small-arrow">↗</span></a></div>
+<div class="based">Based in Croatia</div>
+</div>
+<div class="hero-visual"><div class="hero-photo">
+<div class="photo-bar"><span>STM32 sound synthesizer</span><span>Bachelor’s thesis · 2026</span></div>
+<img alt="Photograph of the assembled STM32F411 sound synthesizer, wiring and LCD" fetchpriority="high" height="752" src="./stm32-synthesizer-prototype.jpg" width="1337"/>
+</div><div aria-label="Synthesizer technical specifications" class="mini-stats"><div><strong>6</strong><span>voices</span></div><div><strong>2</strong><span>oscillators / voice</span></div><div><strong>~44 kHz</strong><span>audio sampling</span></div></div></div>
+</div></section>
+<section aria-labelledby="projects-head" class="section" id="projects"><div class="container">
+<div class="section-head reveal"><div><span class="overline">SELECTED WORK</span><h2 id="projects-head">Projects</h2></div><p>A closer look at the systems, design decisions and results behind my work.</p></div>
+<article aria-labelledby="synth-head" class="project-feature reveal"><div class="project-feature-body">
+<span class="overline">Bachelor’s thesis · 2026</span>
+<h3 id="synth-head">STM32 Polyphonic Sound Synthesizer</h3>
+<p>Designed and built a standalone digital synthesizer around the <strong>STM32F411</strong>. MIDI input triggers up to <strong>six simultaneous notes</strong>; each note combines two wavetable oscillators. The microcontroller produces audio in real time and sends it to a PCM5102 digital-to-analog converter.</p>
+<div aria-label="High-level synthesizer system pipeline" class="architecture synth-architecture" role="group">
+<div class="diagram-heading"><h4>System overview</h4><p>From playing a note to hearing the audio</p></div>
+<div class="system-flow">
+<div class="system-stage"><div class="stage-number">01</div><h5>Input</h5><p>MIDI keyboard and physical knobs</p></div>
+<span aria-hidden="true" class="flow-arrow">→</span>
+<div class="system-stage"><div class="stage-number">02</div><h5>Generate</h5><p>Six voices, two wavetable oscillators each</p></div>
+<span aria-hidden="true" class="flow-arrow">→</span>
+<div class="system-stage"><div class="stage-number">03</div><h5>Shape &amp; mix</h5><p>Envelopes, modulation and shared low-pass filter</p></div>
+<span aria-hidden="true" class="flow-arrow">→</span>
+<div class="system-stage"><div class="stage-number">04</div><h5>Stream</h5><p>DMA buffering and I2S transfer</p></div>
+<span aria-hidden="true" class="flow-arrow">→</span>
+<div class="system-stage"><div class="stage-number">05</div><h5>Play</h5><p>PCM5102 DAC and analog audio output</p></div>
+</div>
+<p class="diagram-foot">The STM32F411 runs the synthesis and output pipeline; a 2×16 LCD displays control values over I2C.</p>
+</div>
+<div class="tech-two synth-details">
+<div><h4>Generating sound efficiently</h4><p>Direct digital synthesis reads precomputed waveform samples from lookup tables, avoiding expensive waveform calculations for every audio sample. Each voice has its own envelope, with an additional fade-out stage to reduce clicks when notes are retriggered.</p></div>
+<div><h4>Keeping audio continuous</h4><p>A double-buffered DMA transfer sends one half of the audio buffer to the DAC while the CPU prepares the next. This separates sample generation from transmission, allowing the synthesizer to play multiple notes without blocking the audio stream.</p></div>
+</div>
+<div class="small-links"><a href="https://github.com/LnrdHr/stm-synthesizer" rel="noopener noreferrer" target="_blank">Source code &amp; demonstrations ↗</a></div>
+<div class="gallery-header"><h4>Oscilloscope measurements</h4><p>Captured during hardware testing · select any image to enlarge</p></div>
+<div aria-label="Six oscilloscope measurements from the 2026 thesis" class="scope-grid">
+<a class="scope-card" data-caption="Figure 7.1 — Sine wave: single-note analog output" href="./scope-sine.jpg"><img alt="Oscilloscope trace showing the sine-wave analog output" loading="lazy" src="./scope-sine.jpg"/><span>Figure 7.1 · Sine wave<small>Single-note output</small></span></a>
+<a class="scope-card" data-caption="Figure 7.2 — Triangle wave: single-note analog output" href="./scope-triangle.jpg"><img alt="Oscilloscope trace showing a triangle-wave analog output" loading="lazy" src="./scope-triangle.jpg"/><span>Figure 7.2 · Triangle wave<small>Single-note output</small></span></a>
+<a class="scope-card" data-caption="Figure 7.3 — Combined sine and triangle oscillators" href="./scope-sine-triangle.jpg"><img alt="Oscilloscope trace showing a mix of sine and triangle waveforms" loading="lazy" src="./scope-sine-triangle.jpg"/><span>Figure 7.3 · Sine + triangle<small>Mixed oscillators</small></span></a>
+<a class="scope-card" data-caption="Figure 7.4 — Combined sine and sawtooth oscillators" href="./scope-sine-saw.jpg"><img alt="Oscilloscope trace showing a mix of sine and sawtooth waveforms" loading="lazy" src="./scope-sine-saw.jpg"/><span>Figure 7.4 · Sine + sawtooth<small>Mixed oscillators</small></span></a>
+<a class="scope-card" data-caption="Figure 7.5 — Three-note A-minor chord" href="./scope-polyphony.jpg"><img alt="Oscilloscope trace showing polyphonic playback of an A-minor chord" loading="lazy" src="./scope-polyphony.jpg"/><span>Figure 7.5 · A-minor chord<small>Three-note polyphony</small></span></a>
+<a class="scope-card" data-caption="Figure 7.6 — I2S clock, data and channel-select signals" href="./scope-i2s.jpg"><img alt="Oscilloscope traces of I2S serial clock, data and channel select" loading="lazy" src="./scope-i2s.jpg"/><span>Figure 7.6 · I2S signals<small>Digital audio interface</small></span></a>
+</div>
+<p class="measure-note"><strong>Validation:</strong> Measurements confirmed waveform generation, mixed oscillators, polyphony and I2S communication. The thesis also records a ~1.9% pitch deviation on a test note—an identified limitation of the implementation.</p>
+</div></article>
+<article aria-labelledby="lead-head" class="project-feature reveal" style="margin-top:27px"><div class="project-feature-body">
+<span class="overline">Professional work · VivaDrive</span>
+<h3 id="lead-head">Automated Financial Lead Analysis</h3>
+<p>Worked on an <strong>n8n-based research and scoring system</strong> that turns a company identifier into a structured assessment for business development. The challenge was coordinating long-running financial-document retrieval, optional web research and consistent outputs from an LLM.</p>
+<div aria-label="High-level financial lead analyzer pipeline" class="architecture lead-architecture" role="group">
+<div class="diagram-heading"><h4>Analysis pipeline</h4><p>Four coordinated workflows, from company selection to scored results</p></div>
+<div class="system-flow lead-flow">
+<div class="system-stage"><div class="stage-number">01</div><h5>Select</h5><p>Choose pending companies from Google Sheets</p></div>
+<span aria-hidden="true" class="flow-arrow">→</span>
+<div class="system-stage"><div class="stage-number">02</div><h5>Collect</h5><p>Request financial filings; store retrieved PDFs</p></div>
+<span aria-hidden="true" class="flow-arrow">→</span>
+<div class="system-stage optional-stage"><div class="stage-number">03 · optional</div><h5>Research</h5><p>Add web evidence about fleet, ownership and business activity</p></div>
+<span aria-hidden="true" class="flow-arrow">→</span>
+<div class="system-stage"><div class="stage-number">04</div><h5>Score</h5><p>Route to a Master or EV evaluation</p></div>
+<span aria-hidden="true" class="flow-arrow">→</span>
+<div class="system-stage"><div class="stage-number">05</div><h5>Deliver</h5><p>Write findings and recommended actions to Sheets</p></div>
+</div>
+<p class="diagram-foot">Financial-only analyses bypass the optional research step and proceed directly to scoring.</p>
+</div>
+<div class="lead-explanations">
+<div><h4>Asynchronous document acquisition</h4><p>The orchestrator processes queued companies individually. An external scraper runs as a separate job; n8n checks its status and gathers the generated financial files into Google Drive before analysis.</p></div>
+<div><h4>Evidence-aware evaluation</h4><p>When enabled, web research adds sourced observations on ownership, fleet, hiring and sustainability. The scoring workflow evaluates either broad business opportunities (<strong>Master</strong>) or electric-vehicle readiness (<strong>EV</strong>).</p></div>
+<div><h4>Structured outputs and reliability</h4><p>LLM results follow defined schemas so they can be mapped into spreadsheet columns. Sequential processing simplifies coordination; consistent schemas, retries and handling long-running jobs are key reliability concerns.</p></div>
+</div>
+<p class="internal-note">Internal internship project. The diagram shows the documented system at a high level; private data, credentials and service endpoints are not shown.</p>
+</div></article>
+<div class="projects-more">
+<article aria-labelledby="polls-head" class="project-card reveal">
+<div aria-label="Illustration of the Django polling backend connected to a LangGraph assistant and search tool" class="visual" role="img"><div class="ai-ui"><div class="top"><span>DJANGO / POLLS</span><span>API + ORM</span></div><div class="chat"><div class="bubble"><div class="pill">LANGGRAPH ASSISTANT</div>Conversation state + tool routing<br/>↳ request / response</div><div class="tool">TAVILY<br/>WEB SEARCH</div></div><div class="top"><span>FRONT END ↔ JSON ENDPOINTS</span><span>LANGFUSE TRACES</span></div></div></div>
+<div class="body"><span class="overline">Personal project</span><h3 id="polls-head">AI-Enhanced Polling Application</h3>
+<p>A Django application that combines a conventional polling backend with an assistant for question generation and conversation.</p>
+<p><strong>How it works:</strong> Django models store questions, choices and votes, while server views provide voting and result workflows. LangGraph coordinates assistant state and calls external tools such as Tavily search when needed. Front-end requests communicate with the backend through JSON endpoints; Langfuse supports inspection of agent runs.</p>
+<div class="small-links"><a href="https://github.com/LnrdHr/django" rel="noopener noreferrer" target="_blank">Repository &amp; demo ↗</a></div>
+</div>
+</article>
+<article aria-labelledby="game-head" class="project-card reveal">
+<div aria-label="Illustration of the alternative tic-tac-toe game board with a frozen center cell and a move history list" class="visual" role="img"><div class="game-ui"><div class="board"><span>×</span><span>○</span><span>×</span><span>○</span><span class="locked">⊗</span><span>○</span><span></span><span>×</span><span></span></div><div class="game-log"><strong>GAME RULES</strong><span>Turn order</span><span>Overwriting</span><span>Frozen cells</span><span>Move history</span></div></div></div>
+<div class="body"><span class="overline">Personal project</span><h3 id="game-head">Alternative Tic-Tac-Toe</h3>
+<p>A React game that extends ordinary tic-tac-toe with overwritable squares, freezing and move-history navigation.</p>
+<p><strong>How it works:</strong> Each move passes through custom rule checks before the board is updated. The application manages turn order, frozen squares, overwrite eligibility and winner detection together. Saved board states allow players to revisit previous moves, with React rendering the board from the selected state.</p>
+<div class="small-links"><a href="https://github.com/LnrdHr/my-first-react" rel="noopener noreferrer" target="_blank">Repository &amp; playable demo ↗</a></div>
+</div>
+</article>
+</div>
+<div class="secondary-work">
+<article class="reveal"><span class="overline">VivaDrive internship</span><h3>EV Charging Location Discovery</h3><p>Worked on a location discovery and evaluation tool using <strong>Overpass API</strong> to query OpenStreetMap-derived features and <strong>OpenRouteService</strong> for routing/location context. The technical challenge is combining heterogeneous geospatial data into comparable candidate locations. Internal work; source not publicly available.</p></article>
+<article class="reveal"><span class="overline">Extramus internship</span><h3>Godot Visual Novel</h3><p>Developed a visual novel using <strong>Godot</strong> during an internship and tested a <strong>Laravel</strong>-based HR platform. Experience with interactive scene flows and web-application QA.</p></article>
+</div>
+</div></section>
+<section aria-labelledby="exp-head" class="section" id="experience"><div class="container experience-grid">
+<div class="section-head reveal"><div><span class="overline">02 / INDUSTRY EXPERIENCE</span><h2 id="exp-head">Hands-on work.</h2></div><p>Practical engineering experience across workflow automation, geospatial data, AI evaluation, game development and web testing.</p></div>
+<div class="timeline">
+<article class="position reveal"><div class="meta"><span>VIVADRIVE · POLAND</span><span>AUG–DEC 2025</span></div><h3>AI Automation Engineer Intern</h3><p>Developed financial lead-research automation using n8n, Python/Django and Selenium. Worked on EV charging-site assessment with Overpass API / OpenRouteService and evaluated speech-to-text pipelines using LangChain and Langfuse.</p></article>
+<article class="position reveal"><div class="meta"><span>EXTRAMUS · ITALY</span><span>JUL–SEP 2024</span></div><h3>Game &amp; Web Developer Intern</h3><p>Built visual novel content in Godot and performed tests on a Laravel-based HR platform.</p></article>
+</div>
+</div></section>
+<section aria-labelledby="skills-head" class="section" id="skills"><div class="container">
+<div class="section-head reveal"><div><span class="overline">EXPERTISE</span><h2 id="skills-head">Technical background</h2></div><p>Technologies used in the projects above.</p></div>
+<div class="skills-grid">
+<div class="skills-panel reveal"><h3>Embedded systems</h3><p>Embedded C on STM32 / ARM Cortex-M4, peripheral interfaces (UART, I2S, I2C and ADC), DMA transfers and digital signal processing. Hardware validation with an oscilloscope.</p></div>
+<div class="skills-panel reveal"><h3>Software &amp; automation</h3><p>Python and Django backends, n8n automation, LLM agent workflows with LangGraph/LangChain, and React/JavaScript interfaces. Experience with Selenium, API integration and Langfuse.</p></div>
+</div>
+<div class="edu reveal"><div><strong>University of Rijeka · Faculty of Engineering</strong>Computer Engineering master's studies (in progress). 2026 bachelor's thesis: <i>Sound Synthesizer Implemented on an STM32 Microcontroller.</i></div><span class="side">RIJEKA · CROATIA</span></div>
+</div></section>
+<section aria-labelledby="contact-head" class="contact" id="contact"><div class="container contact-inner"><div><span class="overline">04 / CONTACT</span><h2 id="contact-head">Let's work together.</h2><p>Open to embedded systems, firmware and software engineering opportunities.</p></div><a class="button primary" href="mailto:jedvajleonard@gmail.com">Send an email ↗</a></div></section>
+</main>
+<footer class="container foot"><span>© <span id="year">2026</span> Leonard Jedvaj · Hosted on GitHub Pages</span><div class="links"><a href="https://github.com/LnrdHr" rel="noopener noreferrer" target="_blank">GitHub</a><a href="https://www.upwork.com/freelancers/~015f01954465be138e" rel="noopener noreferrer" target="_blank">Upwork</a><a href="https://www.freelancer.com/u/lerojed" rel="noopener noreferrer" target="_blank">Freelancer</a><a href="mailto:jedvajleonard@gmail.com">Email</a></div></footer>
+<dialog aria-labelledby="dialog-caption" id="image-dialog"><div class="modal-head"><strong id="dialog-caption">Oscilloscope capture</strong><button id="close-dialog" type="button">Close ×</button></div><img alt="" id="dialog-image"/></dialog>
+<script>
+    document.getElementById('year').textContent=new Date().getFullYear();
+    const menu=document.querySelector('.menu'),nav=document.querySelector('.nav');
+    menu.addEventListener('click',()=>{const open=nav.classList.toggle('open');menu.setAttribute('aria-expanded',String(open));});
+    nav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{nav.classList.remove('open');menu.setAttribute('aria-expanded','false');}));
+    if('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+      const observer=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target);}}),{threshold:.06});
+      document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+    }else{document.querySelectorAll('.reveal').forEach(el=>el.classList.add('visible'));}
+    const dialog=document.getElementById('image-dialog'),dialogImage=document.getElementById('dialog-image'),caption=document.getElementById('dialog-caption');
+    document.querySelectorAll('a.scope-card').forEach(a=>a.addEventListener('click',event=>{
+      if(typeof dialog.showModal!=='function')return;
+      event.preventDefault();dialogImage.src=a.href;dialogImage.alt=a.querySelector('img').alt;caption.textContent=a.dataset.caption;dialog.showModal();
+    }));
+    document.getElementById('close-dialog').addEventListener('click',()=>dialog.close());
+    dialog.addEventListener('click',event=>{if(event.target===dialog)dialog.close();});
+  </script>
+</body>
+</html>
