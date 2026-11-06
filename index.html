@@ -1,0 +1,372 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#08111d">
+  <meta name="description" content="Leonard Jedvaj — Computer Engineering master's student focused on STM32 firmware, embedded systems, real-time DSP and practical AI software.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Leonard Jedvaj | Embedded Systems & Software">
+  <meta property="og:description" content="Embedded firmware, real-time audio DSP, and software engineering. Selected projects and experience.">
+  <meta property="og:image" content="https://lnrdhr.github.io/stm32-synthesizer-prototype.jpg">
+  <meta property="og:url" content="https://lnrdhr.github.io/">
+  <title>Leonard Jedvaj — Embedded Systems & Software</title>
+  <link rel="canonical" href="https://lnrdhr.github.io/">
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #08111d;
+      --bg2: #0d1929;
+      --panel: #101e2c;
+      --panel2: #122438;
+      --stroke: rgba(157,187,217,.17);
+      --stroke-bright: rgba(157,187,217,.34);
+      --text: #f0f5fa;
+      --muted: #b2c2d3;
+      --subtle: #7f98af;
+      --cyan: #66e3db;
+      --lime: #c4e998;
+      --amber: #f6ca8e;
+      --radius: 20px;
+      --shadow: 0 22px 70px rgba(0,0,0,.25);
+      --max: 1140px;
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 95px; }
+    body { margin: 0; font: 400 16px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,Helvetica,Arial,sans-serif; background: var(--bg); color: var(--text); }
+    body::before { content:""; position:absolute; inset:0 0 auto; height:820px; pointer-events:none; background:radial-gradient(ellipse 48% 45% at 76% 19%, rgba(60,159,175,.14), transparent 85%),radial-gradient(ellipse 36% 44% at 15% 44%, rgba(76,111,169,.12), transparent 90%); }
+    ::selection { background: rgba(102,227,219,.32); color: white; }
+    a { color: inherit; text-decoration: none; }
+    button { font:inherit; }
+    a:focus-visible, button:focus-visible, summary:focus-visible { outline: 2px solid var(--cyan); outline-offset: 4px; }
+    img { display: block; max-width:100%; }
+    .container { max-width:var(--max); margin-inline:auto; padding-inline:28px; }
+    .skip-link { position:fixed; z-index:100; top:-100px; left:20px; background:var(--cyan); color:#07121c; padding:10px 18px; border-radius:8px; }
+    .skip-link:focus { top:14px; }
+    .site-header { position:relative; z-index:30; border-bottom:1px solid rgba(157,187,217,.10); }
+    .header-inner { min-height:86px; display:flex; gap:26px; align-items:center; justify-content:space-between; }
+    .brand { display:flex; align-items:center; gap:12px; font-size:14px; font-weight:760; letter-spacing:.01em; white-space:nowrap; }
+    .brand-symbol { display:inline-grid; place-items:center; background:linear-gradient(135deg,#1b3948,#102631); border:1px solid rgba(102,227,219,.42); width:40px; height:40px; border-radius:12px; font-size:13px; font-weight:850; letter-spacing:-.03em; color:var(--cyan); }
+    .site-nav { display:flex; align-items:center; gap:28px; }
+    .site-nav a { font-size:13px; font-weight:650; color:var(--muted); transition:color .2s; }
+    .site-nav a:hover { color:var(--cyan); }
+    .site-nav .nav-contact { border:1px solid var(--stroke-bright); border-radius:100px; padding:9px 17px; color:var(--text); }
+    .site-nav .nav-contact:hover { border-color:var(--cyan); }
+    .menu-toggle { display:none; color:var(--text); background:none; border:1px solid var(--stroke-bright); border-radius:10px; padding:7px 13px; cursor:pointer; }
+    .hero { position:relative; padding-block:93px 85px; overflow:hidden; }
+    .hero::after { content:""; position:absolute; z-index:-1; inset:0; opacity:.3; pointer-events:none; background-image:linear-gradient(rgba(129,171,193,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(129,171,193,.04) 1px,transparent 1px); background-size:56px 56px; mask-image:linear-gradient(to bottom,#000,transparent 92%); }
+    .hero-grid { display:grid; grid-template-columns:1.05fr .95fr; gap:62px; align-items:center; }
+    .eyebrow { display:inline-flex; align-items:center; gap:10px; font-size:11px; font-weight:800; text-transform:uppercase; letter-spacing:.17em; color:var(--cyan); }
+    .eyebrow .line { width:24px; height:1px; background:var(--cyan); }
+    .hero h1 { margin:22px 0 24px; font-size:clamp(3.45rem,5.4vw,5.75rem); line-height:1.035; font-weight:820; letter-spacing:-.067em; }
+    .hero h1 span { color:var(--cyan); }
+    .hero-description { max-width:530px; margin:0; color:var(--muted); font-size:17px; line-height:1.85; }
+    .hero-description strong { color:var(--text); font-weight:620; }
+    .hero-actions { display:flex; align-items:center; flex-wrap:wrap; gap:12px; margin-top:32px; }
+    .btn { display:inline-flex; align-items:center; justify-content:center; gap:12px; min-height:47px; padding:12px 20px; border-radius:10px; font-size:13px; font-weight:780; transition:background .22s, transform .22s, border .22s; }
+    .btn:hover { transform:translateY(-2px); }
+    .btn.primary { background:var(--cyan); color:#07212b; }
+    .btn.primary:hover { background:#8ef3e9; }
+    .btn.secondary { border:1px solid var(--stroke-bright); color:var(--text); background:rgba(255,255,255,.025); }
+    .btn.secondary:hover { border-color:var(--cyan); }
+    .btn svg, .text-link svg, .link-arrow svg { width:15px; height:15px; flex:none; }
+    .hero-note { margin-top:27px; display:flex; gap:9px; align-items:center; color:var(--subtle); font-size:12px; }
+    .hero-note .dot { width:7px; height:7px; flex:none; background:var(--lime); border-radius:50%; box-shadow:0 0 0 5px rgba(196,233,152,.08); }
+    .showcase { position:relative; padding:12px; border:1px solid rgba(122,184,201,.26); border-radius:22px; background:linear-gradient(150deg,rgba(24,50,66,.93),rgba(10,21,34,.92)); box-shadow:var(--shadow); }
+    .showcase::before { content:""; position:absolute; z-index:-1; inset:-38px; background:radial-gradient(ellipse at center,rgba(51,160,180,.20),transparent 70%); filter:blur(28px); }
+    .showcase-top { display:flex; justify-content:space-between; align-items:center; gap:8px; padding:7px 12px 15px; font:700 10px/1.4 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; letter-spacing:.14em; color:var(--muted); }
+    .status { display:flex; align-items:center; gap:8px; color:var(--cyan); }
+    .status i { width:7px; height:7px; background:var(--cyan); border-radius:50%; box-shadow:0 0 11px var(--cyan); }
+    .photo-wrap { position:relative; overflow:hidden; border-radius:12px; aspect-ratio:1.7; border:1px solid var(--stroke); background:#10212d; }
+    .photo-wrap img { width:100%; height:100%; object-fit:cover; transition:transform .6s ease; }
+    .showcase:hover .photo-wrap img { transform:scale(1.045); }
+    .photo-wrap::after { content:""; position:absolute; inset:55% 0 0; background:linear-gradient(transparent,rgba(5,14,20,.78)); pointer-events:none; }
+    .image-caption { position:absolute; z-index:1; bottom:14px; left:17px; right:17px; display:flex; align-items:center; justify-content:space-between; gap:15px; font-size:12px; font-weight:720; }
+    .image-caption span:last-child { color:var(--cyan); font:700 10px ui-monospace,SFMono-Regular,Menlo,monospace; }
+    .signal { display:flex; align-items:center; gap:12px; margin:17px 6px 15px; }
+    .signal-label { color:var(--subtle); font:700 10px ui-monospace,SFMono-Regular,Menlo,monospace; letter-spacing:.04em; white-space:nowrap; }
+    .signal svg { width:100%; height:28px; overflow:visible; }
+    .signal path { fill:none; stroke:var(--cyan); stroke-width:2; stroke-linecap:round; stroke-linejoin:round; stroke-dasharray:220; stroke-dashoffset:220; animation:draw 2s ease forwards; }
+    @keyframes draw { to { stroke-dashoffset:0; } }
+    .showcase-stats { display:grid; grid-template-columns:repeat(3,1fr); border-top:1px solid var(--stroke); }
+    .showcase-stats > div { padding:18px 11px 9px; }
+    .showcase-stats > div + div { border-left:1px solid var(--stroke); }
+    .showcase-stats strong { display:block; font-size:22px; font-weight:800; line-height:1.1; letter-spacing:-.04em; }
+    .showcase-stats span { display:block; margin-top:7px; font-size:10px; line-height:1.4; color:var(--subtle); }
+    .tech-band { border-block:1px solid rgba(157,187,217,.12); background:rgba(255,255,255,.012); }
+    .tech-band .container { display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:18px; padding-block:18px; }
+    .tech-band span { color:var(--subtle); font:700 11px/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; letter-spacing:.11em; white-space:nowrap; }
+    section.content-section { padding-block:100px 0; }
+    .section-heading { display:flex; align-items:end; justify-content:space-between; gap:24px; margin-bottom:30px; }
+    .section-heading h2 { margin:10px 0 0; font-size:clamp(2rem,3.3vw,3.25rem); letter-spacing:-.055em; line-height:1.1; }
+    .section-heading p { max-width:400px; color:var(--muted); margin:0 0 6px; font-size:14px; }
+    .section-number { font:800 11px/1.2 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; color:var(--cyan); letter-spacing:.13em; }
+    .feature-card { display:grid; grid-template-columns:.93fr 1.07fr; overflow:hidden; border:1px solid var(--stroke); border-radius:var(--radius); background:linear-gradient(120deg,#11283a,#0c1928 65%); }
+    .feature-media { display:flex; flex-direction:column; justify-content:space-between; min-width:0; padding:30px; background:radial-gradient(ellipse at 30% 22%,rgba(68,175,182,.1),transparent 75%),#0d2432; border-right:1px solid var(--stroke); }
+    .card-overline { color:var(--cyan); font:750 11px/1.4 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; letter-spacing:.1em; }
+    .wave-frame { margin-top:30px; background:#07151e; border:1px solid rgba(102,227,219,.19); border-radius:13px; padding:12px; transform:rotate(-1.2deg); box-shadow:0 18px 34px rgba(0,0,0,.25); transition:transform .25s; }
+    .feature-card:hover .wave-frame { transform:rotate(0deg) translateY(-3px); }
+    .wave-frame img { width:100%; aspect-ratio:1.73; object-fit:contain; background:#f4f6f7; border-radius:4px; }
+    .wave-frame figcaption { display:flex; align-items:center; justify-content:space-between; gap:8px; font:700 10px/1.4 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; color:var(--subtle); padding:12px 3px 3px; }
+    .micro-labels { display:flex; flex-wrap:wrap; gap:8px; margin-top:25px; }
+    .micro-labels span { border:1px solid rgba(102,227,219,.20); padding:7px 9px; border-radius:7px; color:#b8dcd8; font:650 10px/1.2 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; }
+    .feature-copy { padding:38px 39px; }
+    .category { color:var(--amber); text-transform:uppercase; font:800 10px/1.4 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; letter-spacing:.11em; }
+    h3 { margin:0; }
+    .feature-copy h3 { margin:10px 0 17px; max-width:450px; font-size:clamp(1.65rem,2.35vw,2.35rem); line-height:1.18; letter-spacing:-.04em; }
+    .feature-copy > p, .mini-project p { font-size:14px; line-height:1.8; color:var(--muted); }
+    .feature-copy ul { margin:20px 0 0; padding-left:19px; font-size:13px; line-height:1.8; color:var(--muted); }
+    .feature-copy li { padding-left:4px; margin:7px 0; }
+    .feature-copy li::marker { color:var(--cyan); }
+    .feature-copy b { color:var(--text); font-weight:700; }
+    .text-links { display:flex; align-items:center; gap:18px; flex-wrap:wrap; margin-top:24px; }
+    .text-link { display:inline-flex; gap:9px; align-items:center; color:var(--cyan); font-size:12px; font-weight:800; }
+    .text-link:hover { color:white; }
+    .technical-details { margin-top:23px; border-top:1px solid var(--stroke); padding-top:15px; font-size:12px; color:var(--muted); }
+    .technical-details summary { cursor:pointer; font-weight:700; color:var(--text); }
+    .technical-details p { margin:12px 0 0; }
+    .project-grid { display:grid; grid-template-columns:1fr 1fr; gap:22px; margin-top:22px; }
+    .mini-project { min-width:0; border:1px solid var(--stroke); background:linear-gradient(160deg,var(--panel),#0b1725); padding:29px; border-radius:var(--radius); transition:transform .2s,border-color .2s,box-shadow .2s; }
+    .mini-project:hover { transform:translateY(-5px); border-color:rgba(102,227,219,.33); box-shadow:var(--shadow); }
+    .mini-project .topline { display:flex; justify-content:space-between; align-items:center; gap:12px; margin-bottom:23px; }
+    .mini-project .number { color:var(--subtle); font:700 11px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; }
+    .project-art { position:relative; height:152px; border-radius:11px; border:1px solid rgba(157,187,217,.13); margin-bottom:27px; overflow:hidden; }
+    .ai-art { display:flex; justify-content:center; align-items:center; gap:10px; padding:15px; background:radial-gradient(ellipse at center,rgba(97,125,220,.12),transparent 72%),#101c31; }
+    .ai-art .node { display:grid; place-items:center; position:relative; z-index:1; min-width:70px; padding:10px 8px; background:#1b3150; color:#cadbf2; border:1px solid rgba(124,170,217,.28); border-radius:9px; font:700 10px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; }
+    .ai-art .node.center { background:#133d45; border-color:rgba(102,227,219,.40); color:var(--cyan); }
+    .ai-art .connector { flex:1; min-width:12px; height:1px; background:linear-gradient(90deg,#43647c,var(--cyan)); max-width:38px; }
+    .react-art { display:grid; place-items:center; background:radial-gradient(ellipse at 40% 30%,rgba(230,178,112,.10),transparent 70%),#201e29; }
+    .game-board { display:grid; grid-template-columns:repeat(3,37px); grid-template-rows:repeat(3,37px); gap:4px; transform:rotate(-8deg); }
+    .game-board span { display:grid; place-items:center; background:#2f3040; border:1px solid rgba(240,206,159,.16); border-radius:5px; color:var(--amber); font-size:22px; font-weight:650; }
+    .game-board span:nth-child(even) { color:var(--cyan); }
+    .mini-project h3 { font-size:21px; line-height:1.3; letter-spacing:-.03em; }
+    .stack { display:flex; flex-wrap:wrap; gap:7px; margin:15px 0; }
+    .stack span { padding:4px 8px; font:650 10px/1.3 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; color:#b4c8d6; background:rgba(179,210,226,.075); border-radius:5px; }
+    .mini-project p { min-height:72px; margin:0 0 18px; }
+    .experience-layout { display:grid; grid-template-columns:1fr 1.42fr; gap:55px; }
+    .intro-copy { max-width:380px; font-size:15px; color:var(--muted); line-height:1.9; }
+    .timeline { border-left:1px solid rgba(102,227,219,.32); padding-left:27px; margin-left:7px; }
+    .timeline-item { position:relative; padding-bottom:40px; }
+    .timeline-item:last-child { padding-bottom:0; }
+    .timeline-item::before { content:""; position:absolute; left:-34px; top:6px; width:12px; height:12px; border:2px solid var(--cyan); background:var(--bg); border-radius:50%; }
+    .timeline-meta { display:flex; justify-content:space-between; gap:10px; align-items:flex-start; flex-wrap:wrap; color:var(--subtle); font:650 11px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; }
+    .timeline-item h3 { font-size:20px; margin:12px 0 8px; letter-spacing:-.025em; }
+    .timeline-item p { margin:0; color:var(--muted); font-size:14px; line-height:1.8; }
+    .timeline-item p + p { margin-top:9px; }
+    .two-columns { display:grid; grid-template-columns:1fr 1fr; gap:22px; }
+    .skill-panel { padding:30px; border:1px solid var(--stroke); border-radius:var(--radius); background:var(--panel); }
+    .skill-panel h3 { margin:0 0 6px; font-size:19px; }
+    .skill-panel p { color:var(--subtle); margin:0 0 22px; font-size:13px; }
+    .skills { display:flex; gap:9px; flex-wrap:wrap; }
+    .skills span { padding:8px 11px; background:rgba(102,227,219,.055); color:#d2e2e7; font-size:12px; border:1px solid rgba(102,227,219,.12); border-radius:7px; }
+    .education { margin-top:24px; display:flex; justify-content:space-between; gap:30px; padding:22px 28px; border:1px solid var(--stroke); border-radius:15px; color:var(--muted); font-size:13px; }
+    .education strong { display:block; color:var(--text); font-size:14px; margin-bottom:4px; }
+    .education .date { color:var(--subtle); font:700 11px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; white-space:nowrap; }
+    .contact-section { margin-top:108px; padding:68px 0 72px; border-top:1px solid var(--stroke); background:radial-gradient(ellipse at 70% 20%,rgba(65,137,141,.10),transparent 60%); }
+    .contact-grid { display:grid; grid-template-columns:1fr auto; align-items:center; gap:35px; }
+    .contact-grid h2 { margin:12px 0 12px; font-size:clamp(2.4rem,4.4vw,4.3rem); line-height:1.08; letter-spacing:-.06em; }
+    .contact-grid p { margin:0; color:var(--muted); max-width:550px; font-size:14px; }
+    .footer { display:flex; justify-content:space-between; flex-wrap:wrap; gap:14px; border-top:1px solid var(--stroke); padding-block:22px 33px; color:var(--subtle); font-size:12px; }
+    .footer-links { display:flex; flex-wrap:wrap; gap:18px; }
+    .footer-links a:hover { color:var(--cyan); }
+    .reveal { opacity:0; transform:translateY(17px); transition:opacity .65s ease, transform .65s ease; }
+    .reveal.visible { opacity:1; transform:none; }
+    @media (max-width: 960px) {
+      .hero { padding-block:70px 62px; }
+      .hero-grid { gap:30px; }
+      .hero h1 { font-size:clamp(2.9rem,6vw,4.75rem); }
+      .hero-description { font-size:15px; }
+      .section-heading p { max-width:320px; }
+      .feature-media { padding:23px; }
+      .feature-copy { padding:27px; }
+      .experience-layout { gap:32px; }
+    }
+    @media (max-width: 740px) {
+      .header-inner { min-height:70px; }
+      .hero-grid, .feature-card, .experience-layout, .two-columns, .project-grid, .contact-grid { grid-template-columns:1fr; }
+      .hero-grid { gap:48px; }
+      .hero { padding-block:60px; }
+      .hero h1 { max-width:660px; font-size:clamp(3.2rem,9vw,4.8rem); }
+      .showcase { max-width:580px; }
+      .section-heading { align-items:start; flex-direction:column; gap:10px; }
+      .section-heading p { max-width:540px; }
+      section.content-section { padding-block:78px 0; }
+      .feature-media { border-right:0; border-bottom:1px solid var(--stroke); }
+      .wave-frame { max-width:520px; }
+      .mini-project p { min-height:0; }
+      .intro-copy { max-width:650px; }
+      .contact-section { margin-top:80px; }
+      .contact-grid { gap:28px; }
+    }
+    @media (max-width:600px) {
+      .container { padding-inline:20px; }
+      .menu-toggle { display:inline-block; }
+      .site-nav { display:none; position:absolute; z-index:40; left:20px; right:20px; top:64px; padding:16px 18px; background:#102334; box-shadow:0 12px 30px rgba(0,0,0,.35); border:1px solid var(--stroke-bright); border-radius:14px; align-items:stretch; flex-direction:column; gap:3px; }
+      .site-nav.open { display:flex; }
+      .site-nav a, .site-nav .nav-contact { display:block; padding:10px; border:0; font-size:14px; }
+      .hero { padding-block:49px 55px; }
+      .hero h1 { font-size:clamp(3rem,12vw,4.5rem); }
+      .hero-description { font-size:15px; }
+      .hero-note { align-items:start; }
+      .tech-band .container { gap:13px 20px; justify-content:flex-start; }
+      .tech-band span { font-size:10px; }
+      .showcase-stats strong { font-size:19px; }
+      .showcase-stats span { font-size:9px; }
+      .feature-copy { padding:26px 22px; }
+      .feature-media { padding:22px; }
+      .wave-frame { margin-top:24px; }
+      .mini-project { padding:23px; }
+      .education { flex-direction:column; gap:12px; }
+      .contact-section { padding-block:55px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior:auto; }
+      *, *::before, *::after { animation:none!important; transition:none!important; }
+      .reveal { opacity:1; transform:none; }
+      .signal path { stroke-dashoffset:0; }
+    }
+  </style>
+</head>
+<body id="top">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="#top" class="brand" aria-label="Leonard Jedvaj, home"><span class="brand-symbol">LJ</span><span>Leonard Jedvaj</span></a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menu <span aria-hidden="true">☰</span></button>
+      <nav class="site-nav" id="site-nav" aria-label="Main navigation">
+        <a href="#projects">Projects</a>
+        <a href="#experience">Experience</a>
+        <a href="#skills">Skills</a>
+        <a class="nav-contact" href="mailto:jedvajleonard@gmail.com">Get in touch ↗</a>
+      </nav>
+    </div>
+  </header>
+  <main id="main">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <span class="eyebrow"><span class="line" aria-hidden="true"></span> EMBEDDED SYSTEMS / SOFTWARE</span>
+          <h1 id="hero-title">Engineering at the intersection of <span>hardware &amp; software.</span></h1>
+          <p class="hero-description">I'm <strong>Leonard Jedvaj</strong>, a Computer Engineering master's student at the University of Rijeka. I build STM32 firmware, real-time digital signal processing systems, and practical AI-powered software — with a growing interest in <strong>space and aerospace applications.</strong></p>
+          <div class="hero-actions">
+            <a href="#projects" class="btn primary">Explore my work <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></a>
+            <a href="https://github.com/LnrdHr" class="btn secondary" target="_blank" rel="noopener noreferrer">GitHub profile <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M8 7h9v9"/></svg></a>
+          </div>
+          <div class="hero-note"><span class="dot" aria-hidden="true"></span> Based in Croatia · Interested in embedded systems and software engineering opportunities</div>
+        </div>
+        <div class="showcase" aria-label="Featured STM32 synthesizer project">
+          <div class="showcase-top"><span>PROJECT / 001</span><span class="status"><i aria-hidden="true"></i> HARDWARE PROTOTYPE</span></div>
+          <div class="photo-wrap">
+            <img src="./stm32-synthesizer-prototype.jpg" alt="Physical STM32F411 synthesizer prototype with 2×16 LCD and electronic control circuitry" width="1337" height="752" fetchpriority="high">
+            <div class="image-caption"><span>STM32 Sound Synthesizer</span><span>2026 THESIS</span></div>
+          </div>
+          <div class="signal" aria-hidden="true">
+            <span class="signal-label">AUDIO OUT</span>
+            <svg viewBox="0 0 260 28" preserveAspectRatio="none"><path d="M0 14 Q7 0 14 14 T28 14 T42 14 T56 14 T70 14 T84 14 T98 14 T112 14 T126 14 T140 14 T154 14 T168 14 T182 14 T196 14 T210 14 T224 14 T238 14 T252 14 T266 14"/></svg>
+          </div>
+          <div class="showcase-stats">
+            <div><strong>6</strong><span>polyphonic voices</span></div>
+            <div><strong>12</strong><span>total oscillators</span></div>
+            <div><strong>~44k</strong><span>audio samples/sec</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <div class="tech-band" aria-label="Key technical areas"><div class="container"><span>EMBEDDED C</span><span>ARM CORTEX-M4</span><span>REAL-TIME DSP</span><span>DMA &amp; PERIPHERALS</span><span>PYTHON / AI</span></div></div>
+    <section class="content-section" id="projects" aria-labelledby="projects-title">
+      <div class="container">
+        <div class="section-heading reveal"><div><span class="section-number">01 / SELECTED PROJECTS</span><h2 id="projects-title">Things I've built.</h2></div><p>A selection of hands-on work across embedded hardware, signal processing and software.</p></div>
+        <article class="feature-card reveal" aria-labelledby="synth-title">
+          <div class="feature-media">
+            <div class="card-overline">FEATURED / EMBEDDED SYSTEMS</div>
+            <figure class="wave-frame">
+              <img src="./stm32-synthesizer-waveform.png" alt="Oscilloscope capture of a synthesized audio waveform, measured on the STM32 synthesizer's analogue output" width="840" height="420" loading="lazy">
+              <figcaption><span>OSCILLOSCOPE / ANALOG OUTPUT</span><span>REAL MEASUREMENT</span></figcaption>
+            </figure>
+            <div class="micro-labels" aria-label="Synthesizer interfaces"><span>UART / MIDI</span><span>ADC + DMA</span><span>I2S / DAC</span><span>I2C / LCD</span></div>
+          </div>
+          <div class="feature-copy">
+            <span class="category">Bachelor's thesis · 2026</span>
+            <h3 id="synth-title">STM32 Polyphonic Sound Synthesizer</h3>
+            <p>Designed and built a standalone digital synthesizer on an <b>STM32F411 (ARM Cortex-M4)</b> microcontroller, with real-time audio generation and hardware controls.</p>
+            <ul>
+              <li><b>6-voice polyphony</b> with two wavetable oscillators per voice, generated using direct digital synthesis (DDS).</li>
+              <li>ADSR envelope with fade-out for retriggering, LFO modulation, and a first-order IIR low-pass filter.</li>
+              <li>Interrupt-driven MIDI over UART; potentiometer control through ADC/DMA; LCD over I2C.</li>
+              <li><b>16-bit audio at approximately 44 kHz</b> streamed to a PCM5102 DAC via I2S with circular DMA and half-buffer processing.</li>
+              <li>Validated output waveforms and I2S signaling using an oscilloscope.</li>
+            </ul>
+            <div class="text-links">
+              <a class="text-link" href="https://github.com/LnrdHr/stm-synthesizer" target="_blank" rel="noopener noreferrer">Source code &amp; demos <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M8 7h9v9"/></svg></a>
+              <a class="text-link" href="./stm32-synthesizer-waveform.png" target="_blank" rel="noopener noreferrer">View measurement <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M8 7h9v9"/></svg></a>
+            </div>
+            <details class="technical-details"><summary>Engineering notes &amp; limitations</summary><p>The thesis reports a measured 448.4 Hz output for a 440 Hz target (approximately 1.9% high). Phase indexing/rounding and I2S timing were examined as possible sources of the deviation. The thesis documents the six-voice version; the public repository may reflect an earlier revision.</p></details>
+          </div>
+        </article>
+        <div class="project-grid">
+          <article class="mini-project reveal" aria-labelledby="polls-title">
+            <div class="topline"><span class="category">SOFTWARE / AI</span><span class="number">02</span></div>
+            <div class="project-art ai-art" aria-hidden="true"><span class="node">Django</span><span class="connector"></span><span class="node center">LangGraph</span><span class="connector"></span><span class="node">OpenAI</span></div>
+            <h3 id="polls-title">AI-Enhanced Polling App</h3>
+            <div class="stack"><span>Python</span><span>Django</span><span>LangGraph</span><span>Tavily</span></div>
+            <p>Polling and results tracking with an AI assistant that uses tool routing, web search and conversational context.</p>
+            <a class="text-link" href="https://github.com/LnrdHr/django" target="_blank" rel="noopener noreferrer">Explore repository <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M8 7h9v9"/></svg></a>
+          </article>
+          <article class="mini-project reveal" aria-labelledby="react-title">
+            <div class="topline"><span class="category">WEB / INTERACTIVE</span><span class="number">03</span></div>
+            <div class="project-art react-art" aria-hidden="true"><div class="game-board"><span>×</span><span>○</span><span>×</span><span>○</span><span>×</span><span>○</span><span>○</span><span></span><span>×</span></div></div>
+            <h3 id="react-title">Alternative Tic-Tac-Toe</h3>
+            <div class="stack"><span>React</span><span>JavaScript</span><span>Vite</span></div>
+            <p>A twist on the classic game with overwritable squares, custom move rules and move-history navigation.</p>
+            <a class="text-link" href="https://github.com/LnrdHr/my-first-react" target="_blank" rel="noopener noreferrer">Explore repository <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M8 7h9v9"/></svg></a>
+          </article>
+        </div>
+      </div>
+    </section>
+    <section class="content-section" id="experience" aria-labelledby="experience-title">
+      <div class="container experience-layout">
+        <div class="reveal"><span class="section-number">02 / EXPERIENCE</span><h2 id="experience-title" style="font-size:clamp(2rem,3.4vw,3.2rem);line-height:1.1;letter-spacing:-.05em;margin:12px 0 22px">Working on real problems.</h2><p class="intro-copy">Internship experience spanning AI automation, EV infrastructure planning, game development and web application testing.</p></div>
+        <div class="timeline">
+          <article class="timeline-item reveal"><div class="timeline-meta"><span>VIVADRIVE · POLAND</span><span>AUG–DEC 2025</span></div><h3>AI Automation Engineer Intern</h3><p>Created fleet and financial lead-analysis workflows with Django, n8n and Selenium, including LLM-assisted document analysis.</p><p>Built an EV charging-site discovery and assessment tool using Overpass API and OpenRouteService; evaluated speech-to-text workflows with LangChain and Langfuse.</p></article>
+          <article class="timeline-item reveal"><div class="timeline-meta"><span>EXTRAMUS · ITALY</span><span>JUL–SEP 2024</span></div><h3>Game &amp; Web Developer Intern</h3><p>Developed a visual novel in Godot and performed testing on an HR platform built with Laravel.</p></article>
+        </div>
+      </div>
+    </section>
+    <section class="content-section" id="skills" aria-labelledby="skills-title">
+      <div class="container">
+        <div class="section-heading reveal"><div><span class="section-number">03 / TOOLBOX</span><h2 id="skills-title">Technical skills.</h2></div><p>Tools and technologies used in coursework, projects and professional work.</p></div>
+        <div class="two-columns">
+          <div class="skill-panel reveal"><h3>Embedded &amp; DSP</h3><p>Working close to the hardware.</p><div class="skills"><span>C</span><span>STM32CubeIDE</span><span>ARM Cortex-M4</span><span>DMA</span><span>UART</span><span>I2C</span><span>I2S</span><span>ADC</span><span>MIDI</span><span>Signal Processing</span><span>Oscilloscope testing</span></div></div>
+          <div class="skill-panel reveal"><h3>Software &amp; AI</h3><p>Building and connecting useful applications.</p><div class="skills"><span>Python</span><span>Django</span><span>LangGraph</span><span>LangChain</span><span>Langfuse</span><span>n8n</span><span>Selenium</span><span>JavaScript</span><span>React</span><span>Node.js</span><span>REST APIs</span><span>Godot</span></div></div>
+        </div>
+        <div class="education reveal"><div><strong>University of Rijeka · Faculty of Engineering</strong>Computer Engineering master's studies (in progress). Bachelor's thesis: <em>Sound Synthesizer Implemented on an STM32 Microcontroller</em> (2026).</div><span class="date">RIJEKA, CROATIA</span></div>
+      </div>
+    </section>
+    <section class="contact-section" id="contact" aria-labelledby="contact-title">
+      <div class="container contact-grid reveal"><div><span class="section-number">04 / CONTACT</span><h2 id="contact-title">Have a project in mind?</h2><p>I'm interested in embedded engineering, real-time systems and software opportunities — including applications in aerospace.</p></div><div><a class="btn primary" href="mailto:jedvajleonard@gmail.com">Send an email <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M8 7h9v9"/></svg></a></div></div>
+    </section>
+  </main>
+  <footer class="container footer"><span>© <span id="year">2026</span> Leonard Jedvaj · Built for the web, hosted on GitHub Pages.</span><div class="footer-links"><a href="https://github.com/LnrdHr" target="_blank" rel="noopener noreferrer">GitHub</a><a href="https://www.upwork.com/freelancers/~015f01954465be138e" target="_blank" rel="noopener noreferrer">Upwork</a><a href="https://www.freelancer.com/u/lerojed" target="_blank" rel="noopener noreferrer">Freelancer</a><a href="mailto:jedvajleonard@gmail.com">Email</a></div></footer>
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+    const menuButton = document.querySelector('.menu-toggle');
+    const nav = document.getElementById('site-nav');
+    menuButton.addEventListener('click', () => {
+      const open = nav.classList.toggle('open');
+      menuButton.setAttribute('aria-expanded', String(open));
+    });
+    nav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+      nav.classList.remove('open');
+      menuButton.setAttribute('aria-expanded', 'false');
+    }));
+    if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      const observer = new IntersectionObserver((entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); }
+        }
+      }, { threshold: 0.08 });
+      document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    } else { document.querySelectorAll('.reveal').forEach(el => el.classList.add('visible')); }
+  </script>
+</body>
+</html>
